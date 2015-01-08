@@ -6,13 +6,13 @@ public class GeneratorScript : MonoBehaviour {
 	using System.Collections.Generic;
 
 	public GameObject[] availableRooms;
-	public List<GameObject> currentRooms;
-	public float screenWidthInPoints;
+	public IList<GameObject> currentRooms;
+	private float screenWidthInPoints;
 
 	// Use this for initialization
 	void Start () {
-		float height = 2.0f * camera.main.orthographicSize;
-		screenWidthInPoints = height * camera.main.aspect;
+		float height = 2.0f * Camera.main.orthographicSize;
+		screenWidthInPoints = height * Camera.main.aspect;
 
 	}
 	
@@ -47,7 +47,7 @@ public class GeneratorScript : MonoBehaviour {
 	void GenerateRoomIfRequired()
 	{
 		//1
-		List<GameObject> roomsToRemove = new List<GameObject> ();
+		IList<GameObject> roomsToRemove = new IList<GameObject> ();
 
 		//2
 		bool addRooms = true;
