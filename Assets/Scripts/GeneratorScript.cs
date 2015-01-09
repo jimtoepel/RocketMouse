@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GeneratorScript : MonoBehaviour {
 
-	using System.Collections.Generic;
+
 
 	public GameObject[] availableRooms;
-	public IList<GameObject> currentRooms;
+	public List<GameObject> currentRooms;
 	private float screenWidthInPoints;
 
 	// Use this for initialization
@@ -47,7 +48,7 @@ public class GeneratorScript : MonoBehaviour {
 	void GenerateRoomIfRequired()
 	{
 		//1
-		IList<GameObject> roomsToRemove = new IList<GameObject> ();
+		List<GameObject> roomsToRemove = new List<GameObject> ();
 
 		//2
 		bool addRooms = true;
@@ -67,7 +68,7 @@ public class GeneratorScript : MonoBehaviour {
 		foreach (var room in currentRooms) 
 				{
 						//7
-						float roomWidth = room.transform.FindChidl ("floor").localscale.x;
+						float roomWidth = room.transform.FindChild ("floor").localScale.x;
 						float roomStartX = room.transform.position.x - (roomWidth * 0.5f);
 						float roomEndX = roomStartX + roomWidth;
 
