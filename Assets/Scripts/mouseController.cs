@@ -10,6 +10,8 @@ public bool grounded;
 public LayerMask groundCheckLayerMask;
 public ParticleSystem jetpack;
 
+private bool dead = false;
+
 Animator animator;
 
 
@@ -26,20 +28,26 @@ Animator animator;
 	void FixedUpdate () {
 		bool jetpackActive = Input.GetButton ("Fire1");
 
+		jetpackActive = jetpackActive && !dead;
+
 		if (jetpackActive) {
 
 			rigidbody2D.AddForce(new Vector2(0, jetpackForce));
 
 		}
 
-		Vector2 newVelocity = rigidbody2D.velocity;
-		newVelocity.x = forwardMovementSpeed;
-		rigidbody2D.velocity = newVelocity;
+		if (!dead) {
+		
+			Vector2 newVelocity = rigidbody2D.velocity;
+			newVelocity.x = forwardMovementSpeed;
+			rigidbody2D.velocity = newVelocity;
+
+		}
 
 		UpdateGroundedStatus();
 		AdjustJetpack (jetpackActive);
-
 	}
+
 
 	void UpdateGroundedStatus()
 	{
@@ -58,5 +66,14 @@ Animator animator;
 		jetpack.emissionRate = jetpackactive ? 300.0f : 75.0f;
 	}
 
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		HitByLaser (collider);
+	}
+
+	void HitByLaser(Collider2D laserCollider)
+	{
+		dead = true;
+	}
 
 }
