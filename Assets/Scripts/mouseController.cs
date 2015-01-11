@@ -3,15 +3,17 @@ using System.Collections;
 
 public class MouseController : MonoBehaviour {
 
-public float jetpackForce = 75.0f;
-public float forwardMovementSpeed = 3.0f;
-public Transform groundCheckTransform;
-public bool grounded;
-public LayerMask groundCheckLayerMask;
-public ParticleSystem jetpack;
+	public float jetpackForce = 75.0f;
+	public float forwardMovementSpeed = 3.0f;
+	public Transform groundCheckTransform;
+	public bool grounded;
+	public LayerMask groundCheckLayerMask;
+	public ParticleSystem jetpack;
+	public Texture2D coinIconTexture;
+	
+	private bool dead = false;
+	private uint coins = 0;
 
-private bool dead = false;
-private uint coins = 0;
 
 
 Animator animator;
@@ -21,11 +23,13 @@ Animator animator;
 	void Start () {
 		animator = GetComponent<Animator> ();
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
 
 	void FixedUpdate () {
 		bool jetpackActive = Input.GetButton ("Fire1");
@@ -62,11 +66,13 @@ Animator animator;
 
 	}
 
+
 	void AdjustJetpack (bool jetpackactive)
 	{
 		jetpack.enableEmission = ! grounded;
 		jetpack.emissionRate = jetpackactive ? 300.0f : 75.0f;
 	}
+
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
@@ -76,15 +82,39 @@ Animator animator;
 			HitByLaser (collider);
 	}
 
+
 	void HitByLaser(Collider2D laserCollider)
 	{
 		dead = true;
 		animator.SetBool ("dead", true);
 	}
 
+
 	void CollectCoin(Collider2D coinCollider)
 	{
 		coins ++;
 		DestroyObject (coinCollider.gameObject);
 	}
+
+
+	void DisplayCoinsCount()
+	{
+		Rect coinIconRect = new Rect (10, 10, 32, 32);
+		GUI.DrawTexture (coinIconRect, coinIconTexture);
+
+		GUIStyle style = new GUIStyle ();
+		style.fontSize = 30;
+		style.fontStyle = FontStyle.Bold;
+		style.normal.textColor = Color.yellow;
+
+		Rect labelRect = new Rect (coinIconRect.xMax, coinIconRect.y, 60, 32);
+		GUI.Label (labelRect, coins.ToString (), style);
+	}
+
+
+	void OnGUI()
+	{
+		DisplayCoinsCount ();
+	}
+
 }
