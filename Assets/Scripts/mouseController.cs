@@ -8,6 +8,7 @@ public float forwardMovementSpeed = 3.0f;
 public Transform groundCheckTransform;
 public bool grounded;
 public LayerMask groundCheckLayerMask;
+public ParticleSystem jetpack;
 
 Animator animator;
 
@@ -36,6 +37,7 @@ Animator animator;
 		rigidbody2D.velocity = newVelocity;
 
 		UpdateGroundedStatus();
+		AdjustJetpack (jetpackActive);
 
 	}
 
@@ -48,6 +50,12 @@ Animator animator;
 		//2
 		animator.SetBool ("grounded", grounded);
 
+	}
+
+	void AdjustJetpack (bool jetpackactive)
+	{
+		jetpack.enableEmission = ! grounded;
+		jetpack.emissionRate = jetpackactive ? 300.0f : 75.0f;
 	}
 
 
