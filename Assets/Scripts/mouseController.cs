@@ -11,6 +11,8 @@ public LayerMask groundCheckLayerMask;
 public ParticleSystem jetpack;
 
 private bool dead = false;
+private uint coins = 0;
+
 
 Animator animator;
 
@@ -68,12 +70,21 @@ Animator animator;
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
-		HitByLaser (collider);
+		if (collider.gameObject.CompareTag ("Coins"))
+			CollectCoin (collider);
+		if (collider.gameObject.CompareTag ("Lasers"))
+			HitByLaser (collider);
 	}
 
 	void HitByLaser(Collider2D laserCollider)
 	{
 		dead = true;
+		animator.SetBool ("dead", true);
 	}
 
+	void CollectCoin(Collider2D coinCollider)
+	{
+		coins ++;
+		DestroyObject (coinCollider.gameObject);
+	}
 }
