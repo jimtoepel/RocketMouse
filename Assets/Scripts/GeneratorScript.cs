@@ -14,6 +14,7 @@ public class GeneratorScript : MonoBehaviour {
 	void Start () {
 		float height = 2.0f * Camera.main.orthographicSize;
 		screenWidthInPoints = height * Camera.main.aspect;
+		AddFirstRoom ();
 
 	}
 	
@@ -21,6 +22,13 @@ public class GeneratorScript : MonoBehaviour {
 	void Update () {
 		GenerateRoomIfRequired ();
 
+	}
+
+	void AddFirstRoom()
+	{
+		GameObject room = (GameObject)Instantiate (availableRooms [0]);
+		room.transform.position = new Vector3 (0, 0, 0);
+		currentRooms.Add (room);
 	}
 
 	void AddRoom(float farthestRoomEndX)
