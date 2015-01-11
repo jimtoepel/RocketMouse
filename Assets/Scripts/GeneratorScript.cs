@@ -34,7 +34,8 @@ public class GeneratorScript : MonoBehaviour {
 	void AddRoom(float farthestRoomEndX)
 	{
 		// 1
-		int randomRoomIndex = Random.Range (0, availableRooms.Length);
+		int randomRoomIndex = Random.Range (1, availableRooms.Length);
+		// Note, the "start" room is at locaiton 0 in the array, we don't use that in the pool. Room1 is a unique, starting room
 
 		// 2
 		GameObject room = (GameObject)Instantiate (availableRooms [randomRoomIndex]);
