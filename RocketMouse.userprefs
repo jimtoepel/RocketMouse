@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GeneratorScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/mouseController.cs">
     <Files>
-      <File FileName="Assets/Scripts/GeneratorScript.cs" Line="90" Column="21" />
+      <File FileName="Assets/Scripts/GeneratorScript.cs" Line="54" Column="1" />
       <File FileName="Assets/Scripts/ParticleSortingLayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/mouseController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/mouseController.cs" Line="9" Column="22" />
       <File FileName="Assets/Scripts/CameraFollow.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
