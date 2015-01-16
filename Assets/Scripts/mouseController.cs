@@ -85,6 +85,8 @@ Animator animator;
 
 	void HitByLaser(Collider2D laserCollider)
 	{
+		if (!dead)
+			laserCollider.gameObject.audio.Play ();
 		dead = true;
 		animator.SetBool ("dead", true);
 	}
