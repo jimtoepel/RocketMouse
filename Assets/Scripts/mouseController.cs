@@ -10,6 +10,7 @@ public class MouseController : MonoBehaviour {
 	public LayerMask groundCheckLayerMask;
 	public ParticleSystem jetpack;
 	public Texture2D coinIconTexture;
+	public AudioClip coinCollectSound;
 	
 	private bool dead = false;
 	private uint coins = 0;
@@ -96,6 +97,7 @@ Animator animator;
 	{
 		coins ++;
 		DestroyObject (coinCollider.gameObject);
+		AudioSource.PlayClipAtPoint (coinCollectSound, transform.position);
 	}
 
 
