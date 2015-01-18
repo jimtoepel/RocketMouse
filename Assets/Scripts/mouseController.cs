@@ -126,8 +126,19 @@ Animator animator;
 	void OnGUI()
 	{
 		DisplayCoinsCount ();
+		DisplayRestartButton ();
 	}
 
+
+	void DisplayRestartButton()
+	{
+		if (dead && grounded) {
+			Rect buttonRect = new Rect (Screen.width * 0.35f, Screen.height * 0.45f, Screen.width * 0.30f, Screen.height * .1f);
+				if (GUI.Button (buttonRect, "Tap to Restart!")) {
+					Application.LoadLevel (Application.loadedLevelName);
+				};
+		}
+	}
 
 	void AdjustFootstepsAndJetpackSound(bool jetpackActive)
 	{
