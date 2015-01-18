@@ -11,6 +11,11 @@ public class MouseController : MonoBehaviour {
 	public ParticleSystem jetpack;
 	public Texture2D coinIconTexture;
 	public AudioClip coinCollectSound;
+	public AudioClip hitByLazerSound;
+	public AudioSource jetpackAudio;
+	public AudioSource footstepsAudio;
+
+	public ParallaxScrolling parallax;
 	
 	private bool dead = false;
 	private uint coins = 0;
@@ -53,6 +58,8 @@ Animator animator;
 
 		UpdateGroundedStatus();
 		AdjustJetpack (jetpackActive);
+		AdjustFootstepsAndJetpackSound (jetpackActive);
+		parallax.offset = transform.position.x;
 	}
 
 
@@ -87,7 +94,7 @@ Animator animator;
 	void HitByLaser(Collider2D laserCollider)
 	{
 		if (!dead)
-			laserCollider.gameObject.audio.Play ();
+			AudioSource.PlayClipAtPoint (hitByLazerSound, transform.position);
 		dead = true;
 		animator.SetBool ("dead", true);
 	}
@@ -119,6 +126,16 @@ Animator animator;
 	void OnGUI()
 	{
 		DisplayCoinsCount ();
+	}
+
+
+	void AdjustFootstepsAndJetpackSound(bool jetpackActive)
+	{
+		footstepsAudio.enabled = !dead && grounded;
+
+		jetpackAudio.enabled = !dead && !grounded;
+		jetpackAudio.volume = jetpackActive ? 1.0f : 0.5f;
+
 	}
 
 }
