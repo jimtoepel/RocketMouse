@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MouseController : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class MouseController : MonoBehaviour {
 	public AudioClip hitByLazerSound;
 	public AudioSource jetpackAudio;
 	public AudioSource footstepsAudio;
+	public UnityEngine.UI.Text coinsLabel;
+	public GameObject restartDialog;
 
 	public ParallaxScrolling parallax;
 	
@@ -28,6 +31,7 @@ Animator animator;
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
+		restartDialog.SetActive (false);
 	}
 
 
@@ -97,6 +101,7 @@ Animator animator;
 			AudioSource.PlayClipAtPoint (hitByLazerSound, transform.position);
 		dead = true;
 		animator.SetBool ("dead", true);
+		restartDialog.SetActive (true);
 	}
 
 
@@ -105,40 +110,9 @@ Animator animator;
 		coins ++;
 		DestroyObject (coinCollider.gameObject);
 		AudioSource.PlayClipAtPoint (coinCollectSound, transform.position);
+		coinsLabel.text = coins.ToString ();
 	}
 
-
-	void DisplayCoinsCount()
-	{
-		Rect coinIconRect = new Rect (10, 10, 32, 32);
-		GUI.DrawTexture (coinIconRect, coinIconTexture);
-
-		GUIStyle style = new GUIStyle ();
-		style.fontSize = 30;
-		style.fontStyle = FontStyle.Bold;
-		style.normal.textColor = Color.yellow;
-
-		Rect labelRect = new Rect (coinIconRect.xMax, coinIconRect.y, 60, 32);
-		GUI.Label (labelRect, coins.ToString (), style);
-	}
-
-
-	void OnGUI()
-	{
-		DisplayCoinsCount ();
-		DisplayRestartButton ();
-	}
-
-
-	void DisplayRestartButton()
-	{
-		if (dead && grounded) {
-			Rect buttonRect = new Rect (Screen.width * 0.35f, Screen.height * 0.45f, Screen.width * 0.30f, Screen.height * .1f);
-				if (GUI.Button (buttonRect, "Tap to Restart!")) {
-					Application.LoadLevel (Application.loadedLevelName);
-				};
-		}
-	}
 
 	void AdjustFootstepsAndJetpackSound(bool jetpackActive)
 	{
@@ -149,4 +123,14 @@ Animator animator;
 
 	}
 
+
+	public void RestartGame()
+	{
+		Application.LoadLevel (Application.loadedLevelName);
+	}
+
+	public void ExitToMenu()
+	{
+		Application.LoadLevel ("MenuScene");
+	}
 }
